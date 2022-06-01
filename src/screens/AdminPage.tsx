@@ -15,23 +15,24 @@ const AdminPage = () => {
 
   useEffect(() => {
     getDocs(collection(db, "carBrands")).then((snapchot) => {
+      setCarBrands([]);
       snapchot.forEach((childSnapchot) => {
-        //not updating
+        console.log(childSnapchot.data());
         setCarBrands((p: any) => [...p, childSnapchot.data()]);
       });
     });
 
-    getDocs(collection(db, "cars")).then((snapchot) => {
-      snapchot.forEach((childSnapchot) => {
-        setCars((p: any) => [...p, childSnapchot.data()]);
-      });
-    });
+    //   getDocs(collection(db, "cars")).then((snapchot) => {
+    //   snapchot.forEach((childSnapchot) => {
+    //     setCars((p: any) => [...p, childSnapchot.data()]);
+    //   });
+    // });
 
-    getDocs(collection(db, "retailers")).then((snapchot) => {
-      snapchot.forEach((childSnapchot) => {
-        setRetailers((p: any) => [...p, childSnapchot.data()]);
-      });
-    });
+    // getDocs(collection(db, "retailers")).then((snapchot) => {
+    //   snapchot.forEach((childSnapchot) => {
+    //     setRetailers((p: any) => [...p, childSnapchot.data()]);
+    //   });
+    // });
   }, []);
 
   return (
@@ -46,7 +47,13 @@ const AdminPage = () => {
         Admin Panel
       </Heading>
 
-      <Flex flexDir="row" width="90%" alignItems="center">
+      <Flex
+        flexDir="row"
+        width="90%"
+        justifyContent="center"
+        overflow="auto"
+        maxHeight="90%"
+      >
         {pages.map((page, pageIdx) => (
           <Flex
             key={pageIdx}
@@ -59,27 +66,32 @@ const AdminPage = () => {
             <Button
               backgroundColor="#1D1D1D"
               color="white"
-              mb={5}
+              mb={10}
               onClick={() => {
-                window.location.href = `/admin-add-new/${page}`;
+                window.location.href = `/admin-add-new/${page.name}`;
               }}
             >
               {`Add new ${page.name}`}
             </Button>
 
-            {page.arr.map((arrChild: any, idx: number) => (
-              <Flex
-                key={idx}
-                flexDir="column"
-                width="95%"
-                borderRadius={5}
-                backgroundColor="#000"
-                padding={5}
-                justifyContent="center"
-              >
-                <Text color="white">{arrChild.name}</Text>
-              </Flex>
-            ))}
+            {page.name === "car brand" &&
+              carBrands.map((arrChild: any, idx: number) => (
+                <Flex
+                  key={idx}
+                  flexDir="column"
+                  width="100%"
+                  borderRadius={5}
+                  backgroundColor="#1D1D1D"
+                  padding={5}
+                  justifyContent="center"
+                  cursor="pointer"
+                  mb={3}
+                >
+                  <Text color="white" fontWeight="bold">
+                    {arrChild.name}
+                  </Text>
+                </Flex>
+              ))}
           </Flex>
         ))}
       </Flex>
