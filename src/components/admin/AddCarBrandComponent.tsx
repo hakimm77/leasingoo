@@ -150,7 +150,7 @@ const AddCarBrandComponent = () => {
           backgroundColor="#1D1D1D"
           color="white"
           onClick={() => {
-            addNewCarBrand(name, description);
+            addNewCarBrand(name, description, additionalFields);
           }}
         >
           Add car brand
