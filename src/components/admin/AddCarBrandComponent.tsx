@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Input, Textarea } from "@chakra-ui/react";
+import { Button, Flex, Heading, Input, Text, Textarea } from "@chakra-ui/react";
 import { useState } from "react";
 import { addNewCarBrand } from "../../helpers/admin/addNewProduct";
 import { additionalFieldsType } from "../../types/additionalFieldsType";
@@ -17,6 +17,32 @@ const AddCarBrandComponent = () => {
     ]);
   };
 
+  const onChangeField = async (
+    changeType: "key" | "value",
+    fieldIndex: number,
+    newText: string
+  ) => {
+    let fieldsArr = [...additionalFields];
+
+    switch (changeType) {
+      case "key":
+        fieldsArr[fieldIndex].key = newText;
+        break;
+      case "value":
+        fieldsArr[fieldIndex].value = newText;
+        break;
+    }
+
+    setAdditionalFields(fieldsArr);
+  };
+
+  const deleteField = async (fieldIndex: number) => {
+    let newFieldsArr = [...additionalFields];
+    newFieldsArr.splice(fieldIndex, 1);
+
+    setAdditionalFields(newFieldsArr);
+  };
+
   return (
     <Flex
       flexDir="column"
@@ -24,7 +50,7 @@ const AddCarBrandComponent = () => {
       height="100vh"
       alignItems={"center"}
       backgroundColor="#cecece"
-      overflowY="hidden"
+      overflowY="auto"
     >
       <Heading mt={5} mb={20}>
         Add new car brand
@@ -33,8 +59,6 @@ const AddCarBrandComponent = () => {
       <Flex
         flexDir="column"
         width="60%"
-        maxHeight="400px"
-        overflowY="auto"
         borderRadius={10}
         backgroundColor="#f7f7f7"
         padding={5}
@@ -64,29 +88,49 @@ const AddCarBrandComponent = () => {
           <Flex
             flexDir="row"
             alignItems="center"
-            justifyContent="space-around"
-            width="80%"
-            mb="20px"
-            key={idx}
+            justifyContent="center"
+            width="83%"
           >
-            <Input
-              width="48%"
-              placeholder="Field key"
-              borderColor="gray"
-              value={field.key}
-              onChange={(e: any) => {
-                console.log(e.target.value);
+            <Flex
+              flexDir="row"
+              alignItems="center"
+              justifyContent="space-around"
+              width="80%"
+              mb="20px"
+              key={idx}
+            >
+              <Input
+                width="49%"
+                placeholder="Field key"
+                borderColor="gray"
+                value={field.key}
+                onChange={(e: any) => {
+                  onChangeField("key", idx, e.target.value);
+                }}
+              />
+              <Input
+                width="49%"
+                borderColor="gray"
+                placeholder="Field value"
+                value={field.value}
+                onChange={(e: any) => {
+                  onChangeField("value", idx, e.target.value);
+                }}
+              />
+            </Flex>
+
+            <Text
+              color="red"
+              onClick={() => {
+                deleteField(idx);
               }}
-            />
-            <Input
-              width="48%"
-              borderColor="gray"
-              placeholder="Field value"
-              value={field.value}
-              onChange={(e: any) => {
-                console.log(e.target.value);
-              }}
-            />
+              fontWeight="bold"
+              cursor="pointer"
+              padding={2}
+              mt={-5}
+            >
+              Delete
+            </Text>
           </Flex>
         ))}
 
