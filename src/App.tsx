@@ -9,9 +9,9 @@ const App = () => {
     <ChakraProvider>
       <BrowserRouter>
         <Switch>
-          <Route path="/admin-page" component={AdminPage} />
+          <Route path="/admin" component={AdminPage} />
           <Route path="/admin-add-new/:product" component={AddNew} />
-          <Redirect from="*" exact={true} to={"/admin-page"} />
+          <Redirect from="*" exact={true} to={"/admin"} />
         </Switch>
       </BrowserRouter>
     </ChakraProvider>

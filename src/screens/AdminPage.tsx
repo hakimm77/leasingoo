@@ -74,24 +74,34 @@ const AdminPage = () => {
               {`Add new ${page.name}`}
             </Button>
 
-            {page.name === "car brand" &&
-              carBrands.map((arrChild: any, idx: number) => (
-                <Flex
-                  key={idx}
-                  flexDir="column"
-                  width="100%"
-                  borderRadius={5}
-                  backgroundColor="#1D1D1D"
-                  padding={5}
-                  justifyContent="center"
-                  cursor="pointer"
-                  mb={3}
-                >
-                  <Text color="white" fontWeight="bold">
-                    {arrChild.name}
-                  </Text>
-                </Flex>
-              ))}
+            <Flex
+              flexDir="column"
+              width="100%"
+              justifyContent="center"
+              alignItems="center"
+              overflow="auto"
+              padding={2}
+              maxHeight="500px"
+            >
+              {page.name === "car brand" &&
+                carBrands.map((arrChild: any, idx: number) => (
+                  <Flex
+                    key={idx}
+                    flexDir="column"
+                    width="100%"
+                    borderRadius={5}
+                    backgroundColor="#1D1D1D"
+                    padding={5}
+                    justifyContent="center"
+                    cursor="pointer"
+                    mb={3}
+                  >
+                    <Text color="white" fontWeight="bold">
+                      {arrChild.name}
+                    </Text>
+                  </Flex>
+                ))}
+            </Flex>
           </Flex>
         ))}
       </Flex>

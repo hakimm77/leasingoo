@@ -1,10 +1,21 @@
 import { Button, Flex, Heading, Input, Textarea } from "@chakra-ui/react";
 import { useState } from "react";
 import { addNewCarBrand } from "../../helpers/admin/addNewProduct";
+import { additionalFieldsType } from "../../types/additionalFieldsType";
 
 const AddCarBrandComponent = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [additionalFields, setAdditionalFields] = useState<
+    additionalFieldsType[]
+  >([]);
+
+  const addField = () => {
+    setAdditionalFields((previousFields) => [
+      ...previousFields,
+      { key: "", value: "" },
+    ]);
+  };
 
   return (
     <Flex
@@ -13,6 +24,7 @@ const AddCarBrandComponent = () => {
       height="100vh"
       alignItems={"center"}
       backgroundColor="#cecece"
+      overflowY="hidden"
     >
       <Heading mt={5} mb={20}>
         Add new car brand
@@ -21,6 +33,8 @@ const AddCarBrandComponent = () => {
       <Flex
         flexDir="column"
         width="60%"
+        maxHeight="400px"
+        overflowY="auto"
         borderRadius={10}
         backgroundColor="#f7f7f7"
         padding={5}
@@ -45,6 +59,48 @@ const AddCarBrandComponent = () => {
           }}
           mb={10}
         />
+
+        {additionalFields.map((field, idx) => (
+          <Flex
+            flexDir="row"
+            alignItems="center"
+            justifyContent="space-around"
+            width="80%"
+            mb="20px"
+            key={idx}
+          >
+            <Input
+              width="48%"
+              placeholder="Field key"
+              borderColor="gray"
+              value={field.key}
+              onChange={(e: any) => {
+                console.log(e.target.value);
+              }}
+            />
+            <Input
+              width="48%"
+              borderColor="gray"
+              placeholder="Field value"
+              value={field.value}
+              onChange={(e: any) => {
+                console.log(e.target.value);
+              }}
+            />
+          </Flex>
+        ))}
+
+        <Flex width="80%">
+          <Button
+            backgroundColor="#1D1D1D"
+            color="white"
+            mb="40px"
+            width={200}
+            onClick={addField}
+          >
+            Add new key value pair
+          </Button>
+        </Flex>
 
         <Button
           backgroundColor="#1D1D1D"

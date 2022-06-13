@@ -1,5 +1,4 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
 import AddCarBrandComponent from "../components/admin/AddCarBrandComponent";
 import AddCarComponent from "../components/admin/AddCarComponent";
 import AddRetailerComponent from "../components/admin/AddRetailerComponent";
