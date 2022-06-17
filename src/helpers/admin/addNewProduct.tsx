@@ -28,6 +28,42 @@ export const addNewCarBrand = async (
   }
 };
 
-export const addCar = () => {};
+export const addNewCar = async (additionalFields: additionalFieldsType[]) => {
+  if (additionalFields.length > 0) {
+    const id = generateId();
+    let additionalFieldsObject: any = {};
 
-export const addNewRetailer = () => {};
+    additionalFields.forEach((field) => {
+      additionalFieldsObject[field.key] = field.value;
+    });
+
+    await setDoc(doc(db, `/cars/${id}`), {
+      id: id,
+      ...additionalFieldsObject,
+    });
+
+    console.log("done");
+    window.location.href = "/admin-page";
+  }
+};
+
+export const addNewRetailer = async (
+  additionalFields: additionalFieldsType[]
+) => {
+  if (additionalFields.length > 0) {
+    const id = generateId();
+    let additionalFieldsObject: any = {};
+
+    additionalFields.forEach((field) => {
+      additionalFieldsObject[field.key] = field.value;
+    });
+
+    await setDoc(doc(db, `/retailers/${id}`), {
+      id: id,
+      ...additionalFieldsObject,
+    });
+
+    console.log("done");
+    window.location.href = "/admin-page";
+  }
+};
