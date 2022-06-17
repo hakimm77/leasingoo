@@ -4,6 +4,7 @@ import { addNewCar } from "../../helpers/admin/addNewProduct";
 import { additionalFieldsType } from "../../types/additionalFieldsType";
 
 const AddCarComponent = () => {
+  const [name, setName] = useState("");
   const [additionalFields, setAdditionalFields] = useState<
     additionalFieldsType[]
   >([]);
@@ -63,6 +64,16 @@ const AddCarComponent = () => {
         justifyContent="center"
         alignItems="center"
       >
+        <Input
+          placeholder="Name"
+          width="80%"
+          mb={10}
+          borderColor="gray"
+          onChange={(e: any) => {
+            setName(e.target.value);
+          }}
+        />
+
         {additionalFields.map((field, idx) => (
           <Flex
             flexDir="row"
@@ -129,7 +140,7 @@ const AddCarComponent = () => {
           backgroundColor="#1D1D1D"
           color="white"
           onClick={() => {
-            addNewCar(additionalFields);
+            addNewCar(additionalFields, name);
           }}
         >
           Add car brand

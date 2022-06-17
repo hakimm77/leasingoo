@@ -22,17 +22,21 @@ const AdminPage = () => {
       });
     });
 
-    //   getDocs(collection(db, "cars")).then((snapchot) => {
-    //   snapchot.forEach((childSnapchot) => {
-    //     setCars((p: any) => [...p, childSnapchot.data()]);
-    //   });
-    // });
+    getDocs(collection(db, "cars")).then((snapchot) => {
+      setCars([]);
+      snapchot.forEach((childSnapchot) => {
+        console.log(childSnapchot.data());
+        setCars((p: any) => [...p, childSnapchot.data()]);
+      });
+    });
 
-    // getDocs(collection(db, "retailers")).then((snapchot) => {
-    //   snapchot.forEach((childSnapchot) => {
-    //     setRetailers((p: any) => [...p, childSnapchot.data()]);
-    //   });
-    // });
+    getDocs(collection(db, "retailers")).then((snapchot) => {
+      setRetailers([]);
+      snapchot.forEach((childSnapchot) => {
+        console.log(childSnapchot.data());
+        setRetailers((p: any) => [...p, childSnapchot.data()]);
+      });
+    });
   }, []);
 
   return (
@@ -83,24 +87,59 @@ const AdminPage = () => {
               padding={2}
               maxHeight="500px"
             >
-              {page.name === "car brand" &&
-                carBrands.map((arrChild: any, idx: number) => (
-                  <Flex
-                    key={idx}
-                    flexDir="column"
-                    width="100%"
-                    borderRadius={5}
-                    backgroundColor="#1D1D1D"
-                    padding={5}
-                    justifyContent="center"
-                    cursor="pointer"
-                    mb={3}
-                  >
-                    <Text color="white" fontWeight="bold">
-                      {arrChild.name}
-                    </Text>
-                  </Flex>
-                ))}
+              {page.name === "car brand"
+                ? carBrands.map((arrChild: any, idx: number) => (
+                    <Flex
+                      key={idx}
+                      flexDir="column"
+                      width="100%"
+                      borderRadius={5}
+                      backgroundColor="#1D1D1D"
+                      padding={5}
+                      justifyContent="center"
+                      cursor="pointer"
+                      mb={3}
+                    >
+                      <Text color="white" fontWeight="bold">
+                        {arrChild.name}
+                      </Text>
+                    </Flex>
+                  ))
+                : page.name === "car"
+                ? cars.map((arrChild: any, idx: number) => (
+                    <Flex
+                      key={idx}
+                      flexDir="column"
+                      width="100%"
+                      borderRadius={5}
+                      backgroundColor="#1D1D1D"
+                      padding={5}
+                      justifyContent="center"
+                      cursor="pointer"
+                      mb={3}
+                    >
+                      <Text color="white" fontWeight="bold">
+                        {arrChild.name}
+                      </Text>
+                    </Flex>
+                  ))
+                : retailers.map((arrChild: any, idx: number) => (
+                    <Flex
+                      key={idx}
+                      flexDir="column"
+                      width="100%"
+                      borderRadius={5}
+                      backgroundColor="#1D1D1D"
+                      padding={5}
+                      justifyContent="center"
+                      cursor="pointer"
+                      mb={3}
+                    >
+                      <Text color="white" fontWeight="bold">
+                        {arrChild.name}
+                      </Text>
+                    </Flex>
+                  ))}
             </Flex>
           </Flex>
         ))}
