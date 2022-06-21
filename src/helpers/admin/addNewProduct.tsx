@@ -4,11 +4,9 @@ import { db } from "../firebase/firebaseConfig";
 import { generateId } from "./generateId";
 
 export const addNewCarBrand = async (
-  name: string,
-  description: string,
   additionalFields: additionalFieldsType[]
 ) => {
-  if (name && description && additionalFields.length > 0) {
+  if (additionalFields.length > 0) {
     const id = generateId();
     let additionalFieldsObject: any = {};
 
@@ -17,8 +15,6 @@ export const addNewCarBrand = async (
     });
 
     await setDoc(doc(db, `/carBrands/${id}`), {
-      name: name,
-      description: description,
       id: id,
       ...additionalFieldsObject,
     });
@@ -28,11 +24,8 @@ export const addNewCarBrand = async (
   }
 };
 
-export const addNewCar = async (
-  additionalFields: additionalFieldsType[],
-  name: string
-) => {
-  if (additionalFields.length > 0 && name) {
+export const addNewCar = async (additionalFields: additionalFieldsType[]) => {
+  if (additionalFields.length > 0) {
     const id = generateId();
     let additionalFieldsObject: any = {};
 
@@ -41,7 +34,6 @@ export const addNewCar = async (
     });
 
     await setDoc(doc(db, `/cars/${id}`), {
-      name: name,
       id: id,
       ...additionalFieldsObject,
     });
@@ -52,10 +44,9 @@ export const addNewCar = async (
 };
 
 export const addNewRetailer = async (
-  additionalFields: additionalFieldsType[],
-  name: string
+  additionalFields: additionalFieldsType[]
 ) => {
-  if (additionalFields.length > 0 && name) {
+  if (additionalFields.length > 0) {
     const id = generateId();
     let additionalFieldsObject: any = {};
 
@@ -64,7 +55,6 @@ export const addNewRetailer = async (
     });
 
     await setDoc(doc(db, `/retailers/${id}`), {
-      name: name,
       id: id,
       ...additionalFieldsObject,
     });

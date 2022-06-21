@@ -4,11 +4,9 @@ import { addNewCarBrand } from "../../helpers/admin/addNewProduct";
 import { additionalFieldsType } from "../../types/additionalFieldsType";
 
 const AddCarBrandComponent = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [additionalFields, setAdditionalFields] = useState<
     additionalFieldsType[]
-  >([]);
+  >([{ key: "test1", value: "test2" }]);
 
   const addField = () => {
     setAdditionalFields((previousFields) => [
@@ -65,25 +63,6 @@ const AddCarBrandComponent = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Input
-          placeholder="Name"
-          width="80%"
-          mb={10}
-          borderColor="gray"
-          onChange={(e: any) => {
-            setName(e.target.value);
-          }}
-        />
-        <Textarea
-          placeholder="Description"
-          width="80%"
-          borderColor="gray"
-          onChange={(e: any) => {
-            setDescription(e.target.value);
-          }}
-          mb={10}
-        />
-
         {additionalFields.map((field, idx) => (
           <Flex
             flexDir="row"
@@ -150,7 +129,7 @@ const AddCarBrandComponent = () => {
           backgroundColor="#1D1D1D"
           color="white"
           onClick={() => {
-            addNewCarBrand(name, description, additionalFields);
+            addNewCarBrand(additionalFields);
           }}
         >
           Add car brand
