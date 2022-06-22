@@ -1,7 +1,15 @@
 import { Flex, Text } from "@chakra-ui/react";
-import AddCarBrandComponent from "../components/admin/AddCarBrandComponent";
-import AddCarComponent from "../components/admin/AddCarComponent";
-import AddRetailerComponent from "../components/admin/AddRetailerComponent";
+import AddNewProductComponent from "../components/admin/AddNewProductComponent";
+import {
+  addNewCar,
+  addNewCarBrand,
+  addNewRetailer,
+} from "../helpers/admin/addNewProduct";
+import {
+  carBrandFields,
+  carFields,
+  retailerFields,
+} from "../helpers/admin/fieldsArrs";
 
 const AddNew = ({ match }: { match: any }) => {
   const { product } = match.params;
@@ -9,11 +17,29 @@ const AddNew = ({ match }: { match: any }) => {
   const displayFields = () => {
     switch (product) {
       case "car brand":
-        return <AddCarBrandComponent />;
+        return (
+          <AddNewProductComponent
+            premadeFields={carBrandFields}
+            pageTitle="Add new car brand"
+            addNewProductFunc={addNewCarBrand}
+          />
+        );
       case "car":
-        return <AddCarComponent />;
+        return (
+          <AddNewProductComponent
+            premadeFields={carFields}
+            pageTitle="Add new car"
+            addNewProductFunc={addNewCar}
+          />
+        );
       case "retailer":
-        return <AddRetailerComponent />;
+        return (
+          <AddNewProductComponent
+            premadeFields={retailerFields}
+            pageTitle="Add new retailer"
+            addNewProductFunc={addNewRetailer}
+          />
+        );
     }
   };
 

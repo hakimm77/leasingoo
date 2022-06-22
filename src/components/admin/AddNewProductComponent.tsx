@@ -1,35 +1,25 @@
 import { Button, Flex, Heading, Input, Text, Textarea } from "@chakra-ui/react";
 import { useState } from "react";
-import { addNewCar } from "../../helpers/admin/addNewProduct";
 import { additionalFieldsType } from "../../types/additionalFieldsType";
 
-const AddCarComponent = () => {
-  const [additionalFields, setAdditionalFields] = useState<
-    additionalFieldsType[]
-  >([
-    { key: "Bilmärke", value: "" },
-    { key: "Namn", value: "" },
-    { key: "Beskrivning", value: "" },
-    { key: "Drivning", value: "" },
-    { key: "Drivlåda", value: "" },
-    { key: "Drivlåda", value: "" },
-    { key: "Pris", value: "" },
-    { key: "Avtalslängd", value: "" },
-    { key: "Mil / år", value: "" },
-    { key: "Serviceavtal", value: "" },
-    { key: "Nybilsgaranti", value: "" },
-    { key: "CO2", value: "" },
-    { key: "Motorstyrka", value: "" },
-    { key: "Utsläpp Blandad Körning", value: "" },
-    { key: "Utsläpp Landsväg", value: "" },
-    { key: "Hjul & Fälg", value: "" },
-    { key: "Dragkrok", value: "" },
-    { key: "Bagageutrymme", value: "" },
-    { key: "Acceleration", value: "" },
-    { key: "Fakturaavgift", value: "" },
-    { key: "Uppläggningsavgift", value: "" },
-    { key: "Övermilskostnad", value: "" },
-  ]);
+const AddNewProductComponent = ({
+  premadeFields,
+  pageTitle,
+  addNewProductFunc,
+}: {
+  premadeFields: additionalFieldsType[];
+  pageTitle: string;
+  addNewProductFunc: (additionalFields: additionalFieldsType[]) => void;
+}) => {
+  const [additionalFields, setAdditionalFields] =
+    useState<additionalFieldsType[]>(premadeFields);
+
+  const addField = () => {
+    setAdditionalFields((previousFields) => [
+      ...previousFields,
+      { key: "", value: "" },
+    ]);
+  };
 
   const onChangeField = async (
     changeType: "key" | "value",
@@ -57,13 +47,6 @@ const AddCarComponent = () => {
     setAdditionalFields(newFieldsArr);
   };
 
-  const addField = () => {
-    setAdditionalFields((previousFields) => [
-      ...previousFields,
-      { key: "", value: "" },
-    ]);
-  };
-
   return (
     <Flex
       flexDir="column"
@@ -74,7 +57,7 @@ const AddCarComponent = () => {
       overflowY="auto"
     >
       <Heading mt={5} mb={20}>
-        Add new car
+        {pageTitle}
       </Heading>
 
       <Flex
@@ -152,14 +135,14 @@ const AddCarComponent = () => {
           backgroundColor="#1D1D1D"
           color="white"
           onClick={() => {
-            addNewCar(additionalFields);
+            addNewProductFunc(additionalFields);
           }}
         >
-          Add car brand
+          {pageTitle}
         </Button>
       </Flex>
     </Flex>
   );
 };
 
-export default AddCarComponent;
+export default AddNewProductComponent;
