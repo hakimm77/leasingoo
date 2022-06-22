@@ -6,7 +6,10 @@ import { additionalFieldsType } from "../../types/additionalFieldsType";
 const AddCarBrandComponent = () => {
   const [additionalFields, setAdditionalFields] = useState<
     additionalFieldsType[]
-  >([{ key: "test1", value: "test2" }]);
+  >([
+    { key: "Namn", value: "" },
+    { key: "Beskrivning", value: "" },
+  ]);
 
   const addField = () => {
     setAdditionalFields((previousFields) => [

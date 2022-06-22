@@ -6,7 +6,15 @@ import { additionalFieldsType } from "../../types/additionalFieldsType";
 const AddRetailerComponent = () => {
   const [additionalFields, setAdditionalFields] = useState<
     additionalFieldsType[]
-  >([]);
+  >([
+    { key: "Företagsnamn", value: "" },
+    { key: "Telefon", value: "" },
+    { key: "E-mail", value: "" },
+    { key: "Ort", value: "" },
+    { key: "Gata", value: "" },
+    { key: "Postnummer", value: "" },
+    { key: "Öppettider", value: "" },
+  ]);
 
   const onChangeField = async (
     changeType: "key" | "value",
