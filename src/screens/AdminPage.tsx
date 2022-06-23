@@ -3,6 +3,25 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../helpers/firebase/firebaseConfig";
 
+const ProductListItem = ({ productTitle }: { productTitle: any }) => {
+  return (
+    <Flex
+      flexDir="column"
+      width="100%"
+      borderRadius={5}
+      backgroundColor="#1D1D1D"
+      padding={5}
+      justifyContent="center"
+      cursor="pointer"
+      mb={3}
+    >
+      <Text color="white" fontWeight="bold">
+        {productTitle}
+      </Text>
+    </Flex>
+  );
+};
+
 const AdminPage = () => {
   const [carBrands, setCarBrands] = useState<any>([]);
   const [cars, setCars] = useState<any>([]);
@@ -38,6 +57,25 @@ const AdminPage = () => {
       });
     });
   }, []);
+
+  const displayPages = (pageName: string) => {
+    switch (pageName) {
+      case "car brand":
+        return carBrands.map((arrChild: any, idx: number) => (
+          <ProductListItem key={idx} productTitle={arrChild["Backend title"]} />
+        ));
+      case "car":
+        return cars.map((arrChild: any, idx: number) => (
+          <ProductListItem key={idx} productTitle={arrChild["Backend title"]} />
+        ));
+      case "retailer":
+        return retailers.map((arrChild: any, idx: number) => (
+          <ProductListItem key={idx} productTitle={arrChild["Backend title"]} />
+        ));
+      default:
+        return <Text>List is empty...</Text>;
+    }
+  };
 
   return (
     <Flex
@@ -87,59 +125,7 @@ const AdminPage = () => {
               padding={2}
               maxHeight="500px"
             >
-              {page.name === "car brand"
-                ? carBrands.map((arrChild: any, idx: number) => (
-                    <Flex
-                      key={idx}
-                      flexDir="column"
-                      width="100%"
-                      borderRadius={5}
-                      backgroundColor="#1D1D1D"
-                      padding={5}
-                      justifyContent="center"
-                      cursor="pointer"
-                      mb={3}
-                    >
-                      <Text color="white" fontWeight="bold">
-                        {arrChild.name}
-                      </Text>
-                    </Flex>
-                  ))
-                : page.name === "car"
-                ? cars.map((arrChild: any, idx: number) => (
-                    <Flex
-                      key={idx}
-                      flexDir="column"
-                      width="100%"
-                      borderRadius={5}
-                      backgroundColor="#1D1D1D"
-                      padding={5}
-                      justifyContent="center"
-                      cursor="pointer"
-                      mb={3}
-                    >
-                      <Text color="white" fontWeight="bold">
-                        {arrChild.name}
-                      </Text>
-                    </Flex>
-                  ))
-                : retailers.map((arrChild: any, idx: number) => (
-                    <Flex
-                      key={idx}
-                      flexDir="column"
-                      width="100%"
-                      borderRadius={5}
-                      backgroundColor="#1D1D1D"
-                      padding={5}
-                      justifyContent="center"
-                      cursor="pointer"
-                      mb={3}
-                    >
-                      <Text color="white" fontWeight="bold">
-                        {arrChild.name}
-                      </Text>
-                    </Flex>
-                  ))}
+              {displayPages(page.name)}
             </Flex>
           </Flex>
         ))}
