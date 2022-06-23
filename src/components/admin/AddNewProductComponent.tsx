@@ -1,15 +1,24 @@
 import { Button, Flex, Heading, Input, Text, Textarea } from "@chakra-ui/react";
-import { useState } from "react";
+import { doc, getDoc, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../../helpers/firebase/firebaseConfig";
 import { additionalFieldsType } from "../../types/additionalFieldsType";
 
 const AddNewProductComponent = ({
+  dbRef,
   premadeFields,
   pageTitle,
   addNewProductFunc,
+  id,
 }: {
+  dbRef: string;
   premadeFields: additionalFieldsType[];
   pageTitle: string;
-  addNewProductFunc: (additionalFields: additionalFieldsType[]) => void;
+  addNewProductFunc: (
+    additionalFields: additionalFieldsType[],
+    id: string
+  ) => void;
+  id: string;
 }) => {
   const [additionalFields, setAdditionalFields] =
     useState<additionalFieldsType[]>(premadeFields);
@@ -46,6 +55,23 @@ const AddNewProductComponent = ({
 
     setAdditionalFields(newFieldsArr);
   };
+
+  useEffect(() => {
+    if (id) {
+      getDoc(doc(db, `${dbRef}/${id}`)).then(async (productElement) => {
+        setAdditionalFields([]);
+        let productObj: any = productElement.data();
+        let additionalFieldsArr = Object.entries(productObj);
+
+        additionalFieldsArr.forEach((elementArr: any) => {
+          setAdditionalFields((previousFields) => [
+            ...previousFields,
+            { key: elementArr[0], value: elementArr[1] },
+          ]);
+        });
+      });
+    }
+  }, []);
 
   return (
     <Flex
@@ -135,7 +161,7 @@ const AddNewProductComponent = ({
           backgroundColor="#1D1D1D"
           color="white"
           onClick={() => {
-            addNewProductFunc(additionalFields);
+            addNewProductFunc(additionalFields, id);
           }}
         >
           {pageTitle}

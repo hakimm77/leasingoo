@@ -4,10 +4,11 @@ import { db } from "../firebase/firebaseConfig";
 import { generateId } from "./generateId";
 
 export const addNewCarBrand = async (
-  additionalFields: additionalFieldsType[]
+  additionalFields: additionalFieldsType[],
+  productID: string
 ) => {
   if (additionalFields.length > 0) {
-    const id = generateId();
+    const id = productID ? productID : generateId();
     let additionalFieldsObject: any = {};
 
     additionalFields.forEach((field) => {
@@ -24,9 +25,12 @@ export const addNewCarBrand = async (
   }
 };
 
-export const addNewCar = async (additionalFields: additionalFieldsType[]) => {
+export const addNewCar = async (
+  additionalFields: additionalFieldsType[],
+  productID: string
+) => {
   if (additionalFields.length > 0) {
-    const id = generateId();
+    const id = productID ? productID : generateId();
     let additionalFieldsObject: any = {};
 
     additionalFields.forEach((field) => {
@@ -44,10 +48,12 @@ export const addNewCar = async (additionalFields: additionalFieldsType[]) => {
 };
 
 export const addNewRetailer = async (
-  additionalFields: additionalFieldsType[]
+  additionalFields: additionalFieldsType[],
+  productID: string
 ) => {
   if (additionalFields.length > 0) {
-    const id = generateId();
+    const id = productID ? productID : generateId();
+
     let additionalFieldsObject: any = {};
 
     additionalFields.forEach((field) => {

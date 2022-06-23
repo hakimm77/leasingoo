@@ -3,7 +3,15 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../helpers/firebase/firebaseConfig";
 
-const ProductListItem = ({ productTitle }: { productTitle: any }) => {
+const ProductListItem = ({
+  urlPageTitle,
+  productTitle,
+  productID,
+}: {
+  urlPageTitle: string;
+  productTitle: string;
+  productID: string;
+}) => {
   return (
     <Flex
       flexDir="column"
@@ -14,6 +22,9 @@ const ProductListItem = ({ productTitle }: { productTitle: any }) => {
       justifyContent="center"
       cursor="pointer"
       mb={3}
+      onClick={() => {
+        window.location.href = `/admin-add-new/${urlPageTitle}/${productID}`;
+      }}
     >
       <Text color="white" fontWeight="bold">
         {productTitle}
@@ -62,15 +73,30 @@ const AdminPage = () => {
     switch (pageName) {
       case "car brand":
         return carBrands.map((arrChild: any, idx: number) => (
-          <ProductListItem key={idx} productTitle={arrChild["Backend title"]} />
+          <ProductListItem
+            key={idx}
+            urlPageTitle={pageName}
+            productTitle={arrChild["Backend title"]}
+            productID={arrChild.id}
+          />
         ));
       case "car":
         return cars.map((arrChild: any, idx: number) => (
-          <ProductListItem key={idx} productTitle={arrChild["Backend title"]} />
+          <ProductListItem
+            key={idx}
+            urlPageTitle={pageName}
+            productTitle={arrChild["Backend title"]}
+            productID={arrChild.id}
+          />
         ));
       case "retailer":
         return retailers.map((arrChild: any, idx: number) => (
-          <ProductListItem key={idx} productTitle={arrChild["Backend title"]} />
+          <ProductListItem
+            key={idx}
+            urlPageTitle={pageName}
+            productTitle={arrChild["Backend title"]}
+            productID={arrChild.id}
+          />
         ));
       default:
         return <Text>List is empty...</Text>;

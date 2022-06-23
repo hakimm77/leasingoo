@@ -10,7 +10,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route path="/admin" component={AdminPage} />
-          <Route path="/admin-add-new/:product" component={AddNew} />
+          <Route path="/admin-add-new/:product/:id?" component={AddNew} />
           <Redirect from="*" exact={true} to={"/admin"} />
         </Switch>
       </BrowserRouter>
