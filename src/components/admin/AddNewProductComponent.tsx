@@ -156,7 +156,7 @@ const AddNewProductComponent = ({
             addNewProductFunc(dbRef, additionalFields, id);
           }}
         >
-          {pageTitle}
+          {id ? "Save changes" : pageTitle}
         </Button>
       </Flex>
     </Flex>
