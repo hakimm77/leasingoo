@@ -3,6 +3,7 @@ import { doc, getDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../helpers/firebase/firebaseConfig";
 import { additionalFieldsType } from "../../types/additionalFieldsType";
+import { AddNewProductType } from "../../types/productTypes";
 
 const AddNewProductComponent = ({
   dbRef,
@@ -10,16 +11,7 @@ const AddNewProductComponent = ({
   pageTitle,
   addNewProductFunc,
   id,
-}: {
-  dbRef: string;
-  premadeFields: additionalFieldsType[];
-  pageTitle: string;
-  addNewProductFunc: (
-    additionalFields: additionalFieldsType[],
-    id: string
-  ) => void;
-  id: string;
-}) => {
+}: AddNewProductType) => {
   const [additionalFields, setAdditionalFields] =
     useState<additionalFieldsType[]>(premadeFields);
 

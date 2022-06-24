@@ -1,3 +1,5 @@
+import { additionalFieldsType } from "./additionalFieldsType";
+
 export interface carBrandType {
   name: string;
   description: string;
@@ -38,4 +40,15 @@ export interface retailerType {
   email: string;
   street: string;
   postalCode: string;
+}
+
+export interface AddNewProductType {
+  dbRef: string;
+  premadeFields: additionalFieldsType[];
+  pageTitle: string;
+  addNewProductFunc: (
+    additionalFields: additionalFieldsType[],
+    id: string
+  ) => void;
+  id: string;
 }
