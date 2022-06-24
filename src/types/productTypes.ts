@@ -47,6 +47,7 @@ export interface AddNewProductType {
   premadeFields: additionalFieldsType[];
   pageTitle: string;
   addNewProductFunc: (
+    dbRef: string,
     additionalFields: additionalFieldsType[],
     id: string
   ) => void;

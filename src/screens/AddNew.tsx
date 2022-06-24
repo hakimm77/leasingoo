@@ -1,10 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import AddNewProductComponent from "../components/admin/AddNewProductComponent";
-import {
-  addNewCar,
-  addNewCarBrand,
-  addNewRetailer,
-} from "../helpers/admin/addNewProduct";
+import { addNewProduct } from "../helpers/admin/addNewProduct";
 import {
   carBrandFields,
   carFields,
@@ -23,7 +19,7 @@ const AddNew = ({ match }: { match: any }) => {
             dbRef="carBrands"
             premadeFields={carBrandFields}
             pageTitle="Add new car brand"
-            addNewProductFunc={addNewCarBrand}
+            addNewProductFunc={addNewProduct}
             id={id}
           />
         );
@@ -33,7 +29,7 @@ const AddNew = ({ match }: { match: any }) => {
             dbRef="cars"
             premadeFields={carFields}
             pageTitle="Add new car"
-            addNewProductFunc={addNewCar}
+            addNewProductFunc={addNewProduct}
             id={id}
           />
         );
@@ -43,7 +39,7 @@ const AddNew = ({ match }: { match: any }) => {
             dbRef="retailers"
             premadeFields={retailerFields}
             pageTitle="Add new retailer"
-            addNewProductFunc={addNewRetailer}
+            addNewProductFunc={addNewProduct}
             id={id}
           />
         );

@@ -153,7 +153,7 @@ const AddNewProductComponent = ({
           backgroundColor="#1D1D1D"
           color="white"
           onClick={() => {
-            addNewProductFunc(additionalFields, id);
+            addNewProductFunc(dbRef, additionalFields, id);
           }}
         >
           {pageTitle}
