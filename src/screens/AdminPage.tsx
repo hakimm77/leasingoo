@@ -14,12 +14,13 @@ const ProductListItem = ({
 }) => {
   return (
     <Flex
-      flexDir="column"
+      flexDir="row"
       width="100%"
       borderRadius={5}
       backgroundColor="#1D1D1D"
       padding={5}
-      justifyContent="center"
+      justifyContent="space-between"
+      alignItems="center"
       cursor="pointer"
       mb={3}
       onClick={() => {

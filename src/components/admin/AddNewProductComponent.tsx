@@ -1,6 +1,7 @@
 import { Button, Flex, Heading, Input, Text, Textarea } from "@chakra-ui/react";
 import { doc, getDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { deleteItem } from "../../helpers/admin/deleteProduct";
 import { db } from "../../helpers/firebase/firebaseConfig";
 import { additionalFieldsType } from "../../types/additionalFieldsType";
 import { AddNewProductType } from "../../types/productTypes";
@@ -149,15 +150,30 @@ const AddNewProductComponent = ({
           </Button>
         </Flex>
 
-        <Button
-          backgroundColor="#1D1D1D"
-          color="white"
-          onClick={() => {
-            addNewProductFunc(dbRef, additionalFields, id);
-          }}
-        >
-          {id ? "Save changes" : pageTitle}
-        </Button>
+        <Flex flexDir="row" alignItems="center" justifyContent="space-between">
+          <Button
+            backgroundColor="#1D1D1D"
+            color="white"
+            onClick={() => {
+              addNewProductFunc(dbRef, additionalFields, id);
+            }}
+          >
+            {id ? "Save changes" : pageTitle}
+          </Button>
+
+          {id && (
+            <Button
+              backgroundColor="#1D1D1D"
+              color="white"
+              onClick={() => {
+                deleteItem(dbRef, id);
+              }}
+              margin={10}
+            >
+              Delete item
+            </Button>
+          )}
+        </Flex>
       </Flex>
     </Flex>
   );
