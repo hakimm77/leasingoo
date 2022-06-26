@@ -19,7 +19,7 @@ const AddNewProductComponent = ({
   const addField = () => {
     setAdditionalFields((previousFields) => [
       ...previousFields,
-      { key: "", value: "" },
+      { key: "", value: "", order: additionalFields.length + 1 },
     ]);
   };
 
@@ -59,7 +59,11 @@ const AddNewProductComponent = ({
         additionalFieldsArr.forEach((elementArr: any) => {
           setAdditionalFields((previousFields) => [
             ...previousFields,
-            { key: elementArr[0], value: elementArr[1] },
+            {
+              key: elementArr[1].key,
+              value: elementArr[1].value,
+              order: elementArr[1].order,
+            },
           ]);
         });
       });
@@ -88,55 +92,62 @@ const AddNewProductComponent = ({
         justifyContent="center"
         alignItems="center"
       >
-        {additionalFields.map((field, idx) => (
-          <Flex
-            flexDir="row"
-            alignItems="center"
-            justifyContent="center"
-            width="83%"
-          >
+        {additionalFields
+          .sort((a, b) => a.order - b.order)
+          .map((field, idx) => (
             <Flex
+              key={idx}
               flexDir="row"
               alignItems="center"
-              justifyContent="space-around"
-              width="80%"
-              mb="20px"
-              key={idx}
+              justifyContent="center"
+              width="83%"
             >
-              <Input
-                width="49%"
-                placeholder="Field key"
-                borderColor="gray"
-                value={field.key}
-                onChange={(e: any) => {
-                  onChangeField("key", idx, e.target.value);
-                }}
-              />
-              <Input
-                width="49%"
-                borderColor="gray"
-                placeholder="Field value"
-                value={field.value}
-                onChange={(e: any) => {
-                  onChangeField("value", idx, e.target.value);
-                }}
-              />
-            </Flex>
+              <Flex
+                flexDir="row"
+                alignItems="center"
+                justifyContent="space-around"
+                width="80%"
+                mb="20px"
+                key={idx}
+              >
+                <Input
+                  width="49%"
+                  disabled={field.key === "id"}
+                  placeholder="Field key"
+                  borderColor="gray"
+                  value={field.key}
+                  onChange={(e: any) => {
+                    onChangeField("key", idx, e.target.value);
+                  }}
+                />
+                <Input
+                  width="49%"
+                  disabled={field.key === "id"}
+                  borderColor="gray"
+                  placeholder="Field value"
+                  value={field.value}
+                  onChange={(e: any) => {
+                    onChangeField("value", idx, e.target.value);
+                  }}
+                />
+              </Flex>
 
-            <Text
-              color="red"
-              onClick={() => {
-                deleteField(idx);
-              }}
-              fontWeight="bold"
-              cursor="pointer"
-              padding={2}
-              mt={-5}
-            >
-              Delete
-            </Text>
-          </Flex>
-        ))}
+              {field.key !== "id" && (
+                <Text
+                  color="red"
+                  onClick={() => {
+                    deleteField(idx);
+                  }}
+                  fontWeight="bold"
+                  cursor="pointer"
+                  padding={2}
+                  mt={-5}
+                >
+                  Delete
+                </Text>
+              )}
+            </Flex>
+          ))}
 
         <Flex width="80%">
           <Button

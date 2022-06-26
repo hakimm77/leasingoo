@@ -13,11 +13,17 @@ export const addNewProduct = async (
     let additionalFieldsObject: any = {};
 
     additionalFields.forEach((field) => {
-      additionalFieldsObject[field.key] = field.value;
+      if (field.key !== "id") {
+        additionalFieldsObject[field.key] = field;
+      }
     });
 
     await setDoc(doc(db, `/${dbRef}/${id}`), {
-      id: id,
+      id: {
+        key: "id",
+        value: id,
+        order: 0,
+      },
       ...additionalFieldsObject,
     });
 

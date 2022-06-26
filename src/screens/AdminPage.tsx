@@ -48,7 +48,6 @@ const AdminPage = () => {
     getDocs(collection(db, "carBrands")).then((snapchot) => {
       setCarBrands([]);
       snapchot.forEach((childSnapchot) => {
-        console.log(childSnapchot.data());
         setCarBrands((p: any) => [...p, childSnapchot.data()]);
       });
     });
@@ -56,7 +55,6 @@ const AdminPage = () => {
     getDocs(collection(db, "cars")).then((snapchot) => {
       setCars([]);
       snapchot.forEach((childSnapchot) => {
-        console.log(childSnapchot.data());
         setCars((p: any) => [...p, childSnapchot.data()]);
       });
     });
@@ -64,7 +62,6 @@ const AdminPage = () => {
     getDocs(collection(db, "retailers")).then((snapchot) => {
       setRetailers([]);
       snapchot.forEach((childSnapchot) => {
-        console.log(childSnapchot.data());
         setRetailers((p: any) => [...p, childSnapchot.data()]);
       });
     });
@@ -73,12 +70,13 @@ const AdminPage = () => {
   const displayPages = (pageName: string) => {
     switch (pageName) {
       case "car brand":
+        console.log(carBrands);
         return carBrands.map((arrChild: any, idx: number) => (
           <ProductListItem
             key={idx}
             urlPageTitle={pageName}
-            productTitle={arrChild["Backend title"]}
-            productID={arrChild.id}
+            productTitle={arrChild["Backend title"].value}
+            productID={arrChild.id.value}
           />
         ));
       case "car":
@@ -86,8 +84,8 @@ const AdminPage = () => {
           <ProductListItem
             key={idx}
             urlPageTitle={pageName}
-            productTitle={arrChild["Backend title"]}
-            productID={arrChild.id}
+            productTitle={arrChild["Backend title"].value}
+            productID={arrChild.id.value}
           />
         ));
       case "retailer":
@@ -95,8 +93,8 @@ const AdminPage = () => {
           <ProductListItem
             key={idx}
             urlPageTitle={pageName}
-            productTitle={arrChild["Backend title"]}
-            productID={arrChild.id}
+            productTitle={arrChild["Backend title"].value}
+            productID={arrChild.id.value}
           />
         ));
       default:
